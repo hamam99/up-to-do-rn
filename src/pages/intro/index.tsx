@@ -50,7 +50,7 @@ const Intro = () => {
           }}
         />
         <ButtonCustom
-          title={'NEXT'}
+          title={activeIntro === 2 ? 'GET STARTED' : 'NEXT'}
           buttonStyle={{
             backgroundColor: Colors.purple,
           }}
