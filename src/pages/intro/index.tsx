@@ -1,118 +1,66 @@
-import React from 'react';
-import {Text, View} from 'react-native';
-import {Image, Button} from '@rneui/themed';
+/* eslint-disable react-native/no-inline-styles */
+import React, {useState} from 'react';
+import {View, StyleSheet} from 'react-native';
 
-import Intro1Img from '../../assets/images/intro-1.png';
+import {Colors} from '../../utils';
+import {IntroData} from '../../data';
+import IntroItem from '../../components/atoms/Intro';
+import {ButtonCustom} from '../../components';
 
 const Intro = () => {
-  return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: 'black',
-        paddingHorizontal: 24,
-        paddingVertical: 14,
-      }}>
-      <Text
-        style={{
-          color: 'rgba(255, 255, 255, 0.44)',
-          fontFamily: 'Lato-Regular',
-          fontSize: 16,
-        }}>
-        SKIP
-      </Text>
+  const [activeIntro, setActiveIntro] = useState(0);
 
+  return (
+    <View style={styles.container}>
       <View
-        style={{flex: 1, justifyContent: 'flex-start', alignItems: 'center'}}>
-        <Image source={Intro1Img} style={{width: 213, height: 277}} />
-        <View
-          style={{
-            width: '100%',
-            flexDirection: 'row',
-            marginTop: 51,
-            justifyContent: 'center',
-          }}>
-          <View
-            style={{
-              width: 26,
-              height: 4,
-              backgroundColor: 'rgba(255, 255, 255, 0.87)',
-              borderRadius: 56,
-            }}
-          />
-          <View
-            style={{
-              width: 26,
-              height: 4,
-              backgroundColor: '#AFAFAF',
-              borderRadius: 56,
-              marginHorizontal: 8,
-            }}
-          />
-          <View
-            style={{
-              width: 26,
-              height: 4,
-              backgroundColor: '#AFAFAF',
-              borderRadius: 56,
-            }}
-          />
-        </View>
-        <Text
-          style={{
-            color: 'white',
-            fontFamily: 'Lato-Bold',
-            fontSize: 32,
-            marginTop: 50,
-          }}>
-          Manage your tasks
-        </Text>
-        <Text
-          style={{
-            color: 'white',
-            fontFamily: 'Lato-Regular',
-            fontSize: 16,
-            textAlign: 'center',
-            marginTop: 42,
-          }}>
-          You can easily manage all of your daily tasks in DoMe for free
-        </Text>
+        style={{
+          justifyContent: 'flex-start',
+          alignItems: 'flex-start',
+        }}>
+        <ButtonCustom
+          type={'clear'}
+          title={'SKIP'}
+          titleStyle={{
+            paddingHorizontal: 12,
+            color: Colors.white2,
+          }}
+          onPress={() => {}}
+        />
       </View>
 
-      <View
-        style={{
-          width: '100%',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-        }}>
-        <Button
-          type="clear"
+      <IntroItem
+        description={IntroData.intro[activeIntro].description}
+        image={IntroData.intro[activeIntro].image}
+        title={IntroData.intro[activeIntro].title}
+        indexActive={activeIntro}
+      />
+
+      <View style={styles.buttonWrapper}>
+        <ButtonCustom
+          type={'clear'}
           title={'BACK'}
           titleStyle={{
-            color: 'rgba(255, 255, 255, 0.44)',
-            fontSize: 16,
-            fontFamily: 'Lato-Regular',
+            paddingHorizontal: 12,
+            color: Colors.white2,
           }}
-          containerStyle={{
-            width: 90,
-            height: 48,
-            borderRadius: 4,
+          onPress={() => {
+            if (activeIntro > 0) {
+              setActiveIntro(activeIntro - 1);
+            }
           }}
         />
-        <Button
+        <ButtonCustom
           title={'NEXT'}
           buttonStyle={{
-            backgroundColor: '#8875FF',
-          }}
-          titleStyle={{
-            color: 'white',
-            fontSize: 16,
-            fontFamily: 'Lato-Regular',
+            backgroundColor: Colors.purple,
           }}
           containerStyle={{
-            width: 90,
-            height: 48,
             borderRadius: 4,
+          }}
+          onPress={() => {
+            if (activeIntro < 2) {
+              setActiveIntro(activeIntro + 1);
+            }
           }}
         />
       </View>
@@ -121,3 +69,17 @@ const Intro = () => {
 };
 
 export default Intro;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'black',
+    paddingHorizontal: 24,
+    paddingVertical: 14,
+  },
+  buttonWrapper: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+});
