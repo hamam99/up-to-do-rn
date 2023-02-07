@@ -13,7 +13,7 @@ type IProps = {
 const IntroItem = ({image, title, description, indexActive}: IProps) => {
   return (
     <View style={styles.container}>
-      <Image source={image} style={styles.image} />
+      <Image source={image} style={styles.image} resizeMode={'contain'} />
       <View style={styles.indicatorWrapper}>
         <Indicator isActive={indexActive === 0} />
         <Indicator isActive={indexActive === 1} />
