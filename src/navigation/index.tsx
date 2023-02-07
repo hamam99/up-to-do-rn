@@ -11,7 +11,7 @@ const AppNavigation = () => {
   useEffect(() => {
     setTimeout(() => {
       setShowSplash(false);
-    }, 500);
+    }, 200);
   }, []);
 
   if (showSplash) {
