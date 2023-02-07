@@ -3,7 +3,7 @@ import {Text, View} from 'react-native';
 
 const Intro = () => {
   return (
-    <View>
+    <View style={{flex: 1, backgroundColor: 'green'}}>
       <Text>Intro</Text>
     </View>
   );

@@ -1,12 +1,14 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Intro} from '../pages';
+import {NavigationContainer} from '@react-navigation/native';
+// import {Intro} from '../pages';
 
 const Stack = createNativeStackNavigator();
 
-const RegisterAndLogin = () => {
+const PreLogin = () => {
   return (
-    <Stack.Navigator initialRouteName="Intro">
+    <Stack.Navigator>
       <Stack.Screen
         name="Intro"
         component={Intro}
@@ -16,4 +18,4 @@ const RegisterAndLogin = () => {
   );
 };
 
-export default RegisterAndLogin;
+export default PreLogin;
