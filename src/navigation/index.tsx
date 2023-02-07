@@ -1,14 +1,26 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import AfterLogin from './AfterLogin';
 import PreLogin from './PreLogin';
+import {Splash} from '../pages';
 
 const AppNavigation = () => {
-  const [isLogin, setLogin] = useState(false);
+  const [isAlreadyLogin, setAlreadyLogin] = useState(false);
+  const [showSplash, setShowSplash] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setShowSplash(false);
+    }, 500);
+  }, []);
+
+  if (showSplash) {
+    return <Splash />;
+  }
 
   return (
     <NavigationContainer>
-      {isLogin ? <AfterLogin /> : <PreLogin />}
+      {isAlreadyLogin ? <AfterLogin /> : <PreLogin />}
     </NavigationContainer>
   );
 };
