@@ -45,6 +45,7 @@ export default ButtonCustom;
 const style = StyleSheet.create({
   button: {
     backgroundColor: Colors.purple,
+    height: 48,
   },
   title: {
     color: 'white',
@@ -53,7 +54,7 @@ const style = StyleSheet.create({
     paddingHorizontal: 12,
   },
   container: {
-    height: 48,
+    // height: 48,
     borderRadius: 4,
   },
 });
