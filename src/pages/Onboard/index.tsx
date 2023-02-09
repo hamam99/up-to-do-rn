@@ -34,7 +34,9 @@ const Onboard = () => {
         containerStyle={{
           marginTop: 28,
         }}
-        onPress={() => {}}
+        onPress={() => {
+          navigation.navigate('SignUp');
+        }}
       />
     </View>
   );
