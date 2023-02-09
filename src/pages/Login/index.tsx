@@ -6,7 +6,7 @@ import {useNavigation} from '@react-navigation/native';
 import GlobalStyles from '../../styles';
 import {ButtonCustom, TextInputCustom} from '../../components';
 
-const StartOnboard = () => {
+const Login = () => {
   const navigation = useNavigation();
 
   return (
@@ -89,7 +89,7 @@ const StartOnboard = () => {
   );
 };
 
-export default StartOnboard;
+export default Login;
 
 const styles = StyleSheet.create({
   formContainer: {

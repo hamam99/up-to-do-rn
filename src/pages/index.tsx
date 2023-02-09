@@ -1,6 +1,6 @@
 import Home from './Home';
 import Intro from './intro';
 import Splash from './splash';
-import StartOnboard from './StartOnboard';
+import Login from './Login';
 
-export {Intro, Splash, Home, StartOnboard};
+export {Intro, Splash, Home, Login};
