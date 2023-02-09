@@ -6,9 +6,14 @@ import {Colors} from '../../utils';
 import {IntroData} from '../../data';
 import IntroItem from '../../components/atoms/Intro';
 import {ButtonCustom} from '../../components';
+import {useNavigation} from '@react-navigation/native';
 
 const Intro = () => {
   const [activeIntro, setActiveIntro] = useState(0);
+  const navigation = useNavigation();
+  const gotoOnboard = () => {
+    navigation.navigate('Onboard');
+  };
 
   return (
     <View style={styles.container}>
@@ -27,7 +32,7 @@ const Intro = () => {
           containerStyle={{
             borderColor: undefined,
           }}
-          onPress={() => {}}
+          onPress={gotoOnboard}
         />
       </View>
 
@@ -66,7 +71,10 @@ const Intro = () => {
           onPress={() => {
             if (activeIntro < 2) {
               setActiveIntro(activeIntro + 1);
+              return;
             }
+
+            gotoOnboard();
           }}
         />
       </View>

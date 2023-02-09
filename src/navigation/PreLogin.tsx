@@ -1,7 +1,6 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {Intro, Login} from '../pages';
-import {NavigationContainer} from '@react-navigation/native';
+import {Intro, Login, Onboard} from '../pages';
 
 const Stack = createNativeStackNavigator();
 
@@ -16,6 +15,11 @@ const PreLogin = () => {
       <Stack.Screen
         name="Login"
         component={Login}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Onboard"
+        component={Onboard}
         options={{headerShown: false}}
       />
     </Stack.Navigator>
