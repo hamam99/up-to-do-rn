@@ -1,7 +1,8 @@
 import React from 'react';
-import {ViewStyle, StyleSheet, TextStyle} from 'react-native';
+import {ViewStyle, StyleSheet, TextStyle, StyleProp} from 'react-native';
 import {Button} from '@rneui/themed';
 import {Colors, Fonts} from '../../../utils';
+import {IconNode} from '@rneui/base';
 
 type IPropsLocal = {
   title: string | React.ReactElement<{}>;
@@ -11,21 +12,32 @@ type IPropsLocal = {
   type: 'solid' | 'clear' | 'outline';
   disabled: boolean;
   onPress: () => void;
+  icon?: IconNode;
+  iconContainerStyle?: StyleProp<ViewStyle>;
+  iconRight?: boolean;
+  iconPosition?: 'left' | 'right' | 'top' | 'bottom';
+  loading?: boolean;
 };
-const ButtonCustom = ({
-  title,
-  buttonStyle = {},
-  titleStyle = {},
-  containerStyle = {},
-  type = 'solid',
-  disabled = false,
-  onPress = () => {},
-}: IPropsLocal) => {
+const ButtonCustom = (props: IPropsLocal) => {
+  const {
+    title,
+    buttonStyle = {},
+    titleStyle = {},
+    containerStyle = {},
+    type = 'solid',
+    onPress = () => {},
+  } = props;
   return (
     <Button
+      {...props}
       type={type}
       title={title}
-      buttonStyle={[type !== 'clear' ? style.button : {}, buttonStyle]}
+      // buttonStyle={[type === 'solid' ? style.button : {}, buttonStyle]}
+      buttonStyle={[
+        style.button,
+        type !== 'solid' ? {backgroundColor: undefined} : {},
+        buttonStyle,
+      ]}
       titleStyle={{
         ...style.title,
         ...titleStyle,
@@ -34,7 +46,6 @@ const ButtonCustom = ({
         ...style.container,
         ...containerStyle,
       }}
-      disabled={disabled}
       onPress={() => onPress()}
     />
   );
@@ -54,7 +65,8 @@ const style = StyleSheet.create({
     paddingHorizontal: 12,
   },
   container: {
-    // height: 48,
     borderRadius: 4,
+    borderColor: Colors.purple2,
+    borderWidth: 1,
   },
 });
