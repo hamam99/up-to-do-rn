@@ -19,10 +19,13 @@ const Intro = () => {
         }}>
         <ButtonCustom
           type={'clear'}
-          title={'SKIP'}
+          title={'Skip'}
           titleStyle={{
             paddingHorizontal: 12,
             color: Colors.white2,
+          }}
+          containerStyle={{
+            borderColor: undefined,
           }}
           onPress={() => {}}
         />
@@ -42,6 +45,9 @@ const Intro = () => {
           titleStyle={{
             paddingHorizontal: 12,
             color: Colors.white2,
+          }}
+          containerStyle={{
+            borderColor: undefined,
           }}
           onPress={() => {
             if (activeIntro > 0) {
