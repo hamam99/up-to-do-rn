@@ -8,6 +8,12 @@ function navigate(name, params) {
   }
 }
 
-const NavigationHelper = {navigate};
+function dispatch(stackAction: any) {
+  if (navigationRef.isReady()) {
+    navigationRef.dispatch(stackAction);
+  }
+}
+
+const NavigationHelper = {navigate, dispatch};
 
 export default NavigationHelper;
