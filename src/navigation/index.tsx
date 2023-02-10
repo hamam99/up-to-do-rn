@@ -2,12 +2,10 @@ import React, {useEffect, useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {Splash} from '../pages';
 import {Auth} from '../utils';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import RootNavigation from './RootNavigation';
+import NavigationHelper, {navigationRef} from './NavigationHelper';
 
 const AppNavigation = () => {
-  const [isAlreadyLogin, setAlreadyLogin] = useState(false);
-
   const [showSplash, setShowSplash] = useState(true);
 
   useEffect(() => {
@@ -17,12 +15,10 @@ const AppNavigation = () => {
   }, []);
 
   function onAuthStateChanged(user) {
+    console.log('onAuthStateChanged', {user});
     if (user) {
-      setAlreadyLogin(true);
-    } else {
-      setAlreadyLogin(false);
+      NavigationHelper.navigate('Home');
     }
-
     setShowSplash(false);
   }
 
@@ -36,7 +32,7 @@ const AppNavigation = () => {
   }
 
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={navigationRef}>
       <RootNavigation />
     </NavigationContainer>
   );
