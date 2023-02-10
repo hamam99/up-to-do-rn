@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {NavigationContainer} from '@react-navigation/native';
+import {NavigationContainer, StackActions} from '@react-navigation/native';
 import {Splash} from '../pages';
 import {Auth} from '../utils';
 import RootNavigation from './RootNavigation';
@@ -8,16 +8,11 @@ import NavigationHelper, {navigationRef} from './NavigationHelper';
 const AppNavigation = () => {
   const [showSplash, setShowSplash] = useState(true);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setShowSplash(false);
-    }, 200);
-  }, []);
-
   function onAuthStateChanged(user) {
     console.log('onAuthStateChanged', {user});
     if (user) {
-      NavigationHelper.navigate('Home');
+      // NavigationHelper.navigate('Home');
+      NavigationHelper.dispatch(StackActions.replace('Home'));
     }
     setShowSplash(false);
   }
@@ -27,12 +22,9 @@ const AppNavigation = () => {
     return subscriber; // unsubscribe on unmount
   }, []);
 
-  if (showSplash) {
-    return <Splash />;
-  }
-
   return (
     <NavigationContainer ref={navigationRef}>
+      {showSplash && <Splash />}
       <RootNavigation />
     </NavigationContainer>
   );
