@@ -20,6 +20,9 @@ const signInUsingEmail = ({
   return auth().signInWithEmailAndPassword(email, password);
 };
 
-const Auth = {SignupUsingEmail, signInUsingEmail};
+const onAuthStateChanged = (handler: (user: any) => void) => {
+  return auth().onAuthStateChanged(handler);
+};
+const Auth = {SignupUsingEmail, signInUsingEmail, onAuthStateChanged};
 
 export default Auth;
