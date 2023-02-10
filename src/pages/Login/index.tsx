@@ -1,6 +1,12 @@
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
-import React from 'react';
-import {Colors, Fonts} from '../../utils';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  ToastAndroid,
+} from 'react-native';
+import React, {useState} from 'react';
+import {Auth, Colors, Fonts, Validation} from '../../utils';
 import Header from '../../components/atoms/Header';
 import {useNavigation} from '@react-navigation/native';
 import GlobalStyles from '../../styles';
@@ -8,6 +14,59 @@ import {ButtonCustom, TextInputCustom} from '../../components';
 
 const Login = () => {
   const navigation = useNavigation();
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [emailErrorMessage, setEmailErrorMessage] = useState('');
+  const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
+
+  const [isLoading, setLoading] = useState(false);
+
+  const isDisabled = () => {
+    if (!email) {
+      return true;
+    }
+
+    if (!Validation.email(email)) {
+      return true;
+    }
+
+    if (!password) {
+      return true;
+    }
+
+    if (password.length < 6) {
+      return true;
+    }
+
+    if (emailErrorMessage) {
+      return true;
+    }
+
+    if (passwordErrorMessage) {
+      return true;
+    }
+
+    return false;
+  };
+
+  const doLogin = () => {
+    setLoading(true);
+    Auth.signInUsingEmail({email, password})
+      .then(response => {
+        console.log('Login response', {response});
+      })
+      .catch(err => {
+        console.log('Login error', {err});
+        ToastAndroid.show(
+          err?.message ?? 'Try again later!',
+          ToastAndroid.SHORT,
+        );
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
 
   return (
     <View style={GlobalStyles.container}>
@@ -17,31 +76,32 @@ const Login = () => {
           navigation.goBack();
         }}
       />
-      <Text
-        style={{
-          fontSize: 32,
-          fontFamily: Fonts.LatoBold,
-          color: 'white',
-          marginTop: 41,
-        }}>
-        Login
-      </Text>
+      <Text style={styles.title}>Login</Text>
       <View style={styles.formContainer}>
         <TextInputCustom
-          placeholder="Username"
-          label={'Username'}
-          onChangeText={() => {}}
+          placeholder="Email"
+          label={'Email'}
+          errorMessage={emailErrorMessage}
+          onChangeText={text => {
+            setEmail(text);
+          }}
         />
         <TextInputCustom
           placeholder="Password"
           label={'Password'}
-          onChangeText={text => {}}
+          secureTextEntry={true}
+          errorMessage={passwordErrorMessage}
+          onChangeText={text => {
+            setPassword(text);
+          }}
         />
       </View>
       <ButtonCustom
         title={'Login'}
-        onPress={() => {}}
+        loading={isLoading}
         containerStyle={styles.formButton}
+        disabled={isDisabled()}
+        onPress={doLogin}
       />
 
       <View style={styles.dividerWrapper}>
@@ -92,6 +152,12 @@ const Login = () => {
 export default Login;
 
 const styles = StyleSheet.create({
+  title: {
+    fontSize: 32,
+    fontFamily: Fonts.LatoBold,
+    color: 'white',
+    marginTop: 41,
+  },
   formContainer: {
     marginTop: 40,
   },
