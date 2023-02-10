@@ -24,6 +24,7 @@ type IProps = {
   labelStyle?: StyleProp<TextStyle> | object;
   labelProps?: object;
   renderErrorMessage?: boolean;
+  secureTextEntry?: boolean;
   onChangeText?: ((text: string) => void) | undefined;
 };
 const TextInputCustom = (props: IProps) => {
