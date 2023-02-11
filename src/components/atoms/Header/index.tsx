@@ -81,6 +81,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingTop: 16,
+    paddingBottom: 8,
   },
   title: {
     width: '100%',
