@@ -1,3 +1,4 @@
+import HomeData from './HomeData';
 import IntroData from './IntroData';
 
-export {IntroData};
+export {IntroData, HomeData};
