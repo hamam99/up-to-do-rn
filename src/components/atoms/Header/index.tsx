@@ -7,6 +7,7 @@ type IProps = {
   leftIcon: string | null | undefined;
   leftIconOnPress: () => void | undefined;
   rightIcon: string | null | undefined;
+  customRightIcon: any | null | undefined;
   rightIconOnPress: () => void | undefined;
   title: string | undefined;
 };
@@ -19,6 +20,7 @@ const Header = ({
   leftIcon,
   leftIconOnPress,
   rightIcon,
+  customRightIcon,
   rightIconOnPress,
   title,
 }: IProps) => {
@@ -30,10 +32,14 @@ const Header = ({
   };
 
   const buildRightIcon = () => {
-    if (!rightIcon) {
-      return null;
+    if (customRightIcon) {
+      return customRightIcon;
     }
-    return buildIcon({name: rightIcon, onPress: rightIconOnPress});
+
+    if (rightIcon) {
+      return buildIcon({name: rightIcon, onPress: rightIconOnPress});
+    }
+    return null;
   };
 
   const buildIcon = ({name, onPress}: IButtonProps) => {
@@ -74,7 +80,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    // paddingTop: 12,
+    paddingTop: 16,
   },
   title: {
     width: '100%',
