@@ -9,6 +9,7 @@ const Colors = {
   gray2: '#979797',
   black: '#121212',
   black1: '#1D1D1D',
+  black2: '#363636',
 };
 
 export default Colors;

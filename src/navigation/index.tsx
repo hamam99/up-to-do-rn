@@ -12,7 +12,7 @@ const AppNavigation = () => {
     console.log('onAuthStateChanged', {user});
     if (user) {
       // NavigationHelper.navigate('Home');
-      NavigationHelper.dispatch(StackActions.replace('Home'));
+      // NavigationHelper.dispatch(StackActions.replace('Home'));
     }
     setShowSplash(false);
   }
