@@ -24,51 +24,10 @@ import focusActive from '../assets/icons/menu-focus-active.png';
 import focusDeactive from '../assets/icons/menu-focus-deactive.png';
 import profileDeactive from '../assets/icons/menu-profile-deactive.png';
 import addActive from '../assets/icons/menu-add.png';
+import {CustomButtonTabBar, IconTabBar} from '../components';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
-
-const IconMenu = ({
-  focused,
-  text,
-  iconActive,
-  iconDeactive,
-}: {
-  focused: boolean;
-  text: string;
-  iconActive: ImageSourcePropType;
-  iconDeactive: ImageSourcePropType;
-}) => {
-  return (
-    <View style={{justifyContent: 'center', alignItems: 'center'}}>
-      <Image
-        source={focused ? iconActive : iconDeactive}
-        style={{width: 24, height: 24}}
-      />
-      <Text style={{color: focused ? 'white' : 'gray'}}>{text}</Text>
-    </View>
-  );
-};
-
-const CustomTabBarButton = ({children, onPress}) => {
-  return (
-    <TouchableOpacity
-      onPress={onPress}
-      style={{top: -30, justifyContent: 'center', alignItems: 'center'}}>
-      <View
-        style={{
-          width: 64,
-          height: 64,
-          borderRadius: 32,
-          backgroundColor: Colors.purple2,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-        {children}
-      </View>
-    </TouchableOpacity>
-  );
-};
 
 const Tabs = () => {
   return (
@@ -86,7 +45,7 @@ const Tabs = () => {
         component={Home}
         options={{
           tabBarIcon: ({focused}) => (
-            <IconMenu
+            <IconTabBar
               focused={focused}
               text="Home"
               iconActive={homeActive}
@@ -100,7 +59,7 @@ const Tabs = () => {
         component={CalendarTask}
         options={{
           tabBarIcon: ({focused}) => (
-            <IconMenu
+            <IconTabBar
               focused={focused}
               text="Calendar"
               iconActive={calendarActive}
@@ -116,7 +75,7 @@ const Tabs = () => {
           tabBarIcon: ({focused}) => (
             <Image source={addActive} style={{width: 32, height: 32}} />
           ),
-          tabBarButton: props => <CustomTabBarButton {...props} />,
+          tabBarButton: props => <CustomButtonTabBar {...props} />,
         }}
       />
       <Tab.Screen
@@ -124,7 +83,7 @@ const Tabs = () => {
         component={Focus}
         options={{
           tabBarIcon: ({focused}) => (
-            <IconMenu
+            <IconTabBar
               focused={focused}
               text="Focus"
               iconActive={focusActive}
@@ -138,7 +97,7 @@ const Tabs = () => {
         component={Profile}
         options={{
           tabBarIcon: ({focused}) => (
-            <IconMenu
+            <IconTabBar
               focused={focused}
               text="Profile"
               iconActive={profileDeactive}
