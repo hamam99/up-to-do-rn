@@ -11,7 +11,7 @@ const AppNavigation = () => {
   function onAuthStateChanged(user) {
     console.log('onAuthStateChanged', {user});
     if (user) {
-      // NavigationHelper.navigate('Home');
+      // NavigationHelper.navigate('Main');
       // NavigationHelper.dispatch(StackActions.replace('Home'));
     }
     setShowSplash(false);
