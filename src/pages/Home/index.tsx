@@ -1,22 +1,24 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
   FlatList,
   Image,
   StyleSheet,
-  ImageProps,
   ImageSourcePropType,
 } from 'react-native';
-import {HeaderWithProfile} from '../../components';
+import {HeaderWithProfile, TextInputCustom} from '../../components';
 import {CategoryData, HomeData} from '../../data';
 import GlobalStyles from '../../styles';
 import {Colors, Fonts} from '../../utils';
 import _ from 'lodash';
 import moment from 'moment';
+import Icon from 'react-native-vector-icons/AntDesign';
+import {SearchBar} from '@rneui/themed';
 
 const Home = () => {
   const today = moment();
+  const [searchText, setSearchText] = useState('');
 
   return (
     <View style={[GlobalStyles.container]}>
@@ -27,6 +29,13 @@ const Home = () => {
           ListEmptyComponent={<Empty />}
           renderItem={({item, index, separators}) => <Items {...item} />}
           ItemSeparatorComponent={<Divider />}
+          ListHeaderComponent={
+            <Search
+              onChangeText={text => {
+                setSearchText(text);
+              }}
+            />
+          }
         />
       </View>
     </View>
@@ -34,6 +43,17 @@ const Home = () => {
 };
 
 export default Home;
+
+const Search = ({onChangeText}) => {
+  return (
+    <TextInputCustom
+      onChangeText={onChangeText}
+      placeholder={'Search for your task'}
+      inputContainerStyle={{width: '100%'}}
+      leftIcon={<Icon name="search1" size={24} color={Colors.gray1} />}
+    />
+  );
+};
 
 const Items = ({
   title,
@@ -216,5 +236,14 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.LatoRegular,
     fontSize: 12,
     color: Colors.white,
+  },
+  searchContainer: {
+    borderWidth: 1,
+    borderColor: Colors.gray2,
+    borderRadius: 4,
+    height: 48,
+    // justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 20,
   },
 });
