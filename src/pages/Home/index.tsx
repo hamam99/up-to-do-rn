@@ -7,7 +7,7 @@ import {
   StyleSheet,
   ImageSourcePropType,
 } from 'react-native';
-import {HeaderWithProfile, TextInputCustom} from '../../components';
+import {DropDown, HeaderWithProfile, TextInputCustom} from '../../components';
 import {CategoryData, HomeData} from '../../data';
 import GlobalStyles from '../../styles';
 import {Colors, Fonts} from '../../utils';
@@ -15,6 +15,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {SearchBar} from '@rneui/themed';
+import DropDownPicker from 'react-native-dropdown-picker';
 
 const Home = () => {
   const today = moment();
@@ -23,6 +24,16 @@ const Home = () => {
   return (
     <View style={[GlobalStyles.container]}>
       <HeaderWithProfile title="Home" />
+      <DropDown
+        defaultValue={'all'}
+        getCurrentValue={value => {
+          console.log('value', value);
+        }}
+        style={{
+          marginBottom: 16,
+          width: 160,
+        }}
+      />
       <View>
         <FlatList
           data={HomeData.ListTask}
@@ -44,14 +55,29 @@ const Home = () => {
 
 export default Home;
 
+const FilterDropdown = ({open, value, setOpen, setValue, items, setItems}) => {
+  return (
+    <DropDownPicker
+      open={open}
+      value={value}
+      items={items}
+      setOpen={setOpen}
+      setValue={setValue}
+      setItems={setItems}
+    />
+  );
+};
+
 const Search = ({onChangeText}) => {
   return (
-    <TextInputCustom
-      onChangeText={onChangeText}
-      placeholder={'Search for your task'}
-      inputContainerStyle={{width: '100%'}}
-      leftIcon={<Icon name="search1" size={24} color={Colors.gray1} />}
-    />
+    <View style={{marginBottom: -10}}>
+      <TextInputCustom
+        onChangeText={onChangeText}
+        placeholder={'Search for your task'}
+        inputContainerStyle={{width: '100%'}}
+        leftIcon={<Icon name="search1" size={24} color={Colors.gray1} />}
+      />
+    </View>
   );
 };
 
