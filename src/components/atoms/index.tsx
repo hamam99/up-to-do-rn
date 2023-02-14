@@ -1,6 +1,7 @@
 import ButtonBack from './ButtonBack';
 import ButtonCustom from './ButtonCustom';
 import CustomButtonTabBar from './CustomButtonTabBar';
+import DropDown from './DropDown';
 import Header from './Header';
 import IconTabBar from './IconTabBar';
 import IntroItem from './Intro';
@@ -14,4 +15,5 @@ export {
   TextInputCustom,
   IconTabBar,
   CustomButtonTabBar,
+  DropDown,
 };
