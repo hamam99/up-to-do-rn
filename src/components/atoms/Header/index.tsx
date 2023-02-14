@@ -4,31 +4,43 @@ import {Icon} from '@rneui/themed';
 import {Fonts} from '../../../utils';
 
 type IProps = {
+  customlLeftIcon: any | null | undefined;
   leftIcon: string | null | undefined;
   leftIconOnPress: () => void | undefined;
   rightIcon: string | null | undefined;
   customRightIcon: any | null | undefined;
   rightIconOnPress: () => void | undefined;
   title: string | undefined;
+  type: string | undefined;
+  color: string | undefined;
+  size: number | undefined;
 };
 
 type IButtonProps = {
   name: string;
   onPress: () => void | undefined;
 };
-const Header = ({
-  leftIcon,
-  leftIconOnPress,
-  rightIcon,
-  customRightIcon,
-  rightIconOnPress,
-  title,
-}: IProps) => {
+const Header = (props: IProps) => {
+  const {
+    leftIcon,
+    leftIconOnPress,
+    rightIcon,
+    customRightIcon,
+    rightIconOnPress,
+    title,
+    color = 'white',
+    size = '32',
+    type,
+  } = props;
+
   const buildLeftIcon = () => {
     if (!leftIcon) {
       return null;
     }
-    return buildIcon({name: leftIcon, onPress: leftIconOnPress});
+    return buildIcon({
+      name: leftIcon,
+      onPress: leftIconOnPress,
+    });
   };
 
   const buildRightIcon = () => {
@@ -37,15 +49,19 @@ const Header = ({
     }
 
     if (rightIcon) {
-      return buildIcon({name: rightIcon, onPress: rightIconOnPress});
+      return buildIcon({
+        name: rightIcon,
+        onPress: rightIconOnPress,
+      });
     }
     return null;
   };
 
-  const buildIcon = ({name, onPress}: IButtonProps) => {
+  const buildIcon = (props: IButtonProps) => {
+    const {name, onPress} = props;
     return (
       <TouchableOpacity onPress={onPress}>
-        <Icon name={name} size={32} color="white" />
+        <Icon name={name} size={size} color={color} type={type} />
       </TouchableOpacity>
     );
   };
