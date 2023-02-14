@@ -3,7 +3,7 @@ import React from 'react';
 import {Input} from '@rneui/themed';
 import {TextInput, ViewStyle, StyleProp, TextStyle} from 'react-native';
 import {IconNode} from '@rneui/base';
-import {Colors} from '../../../utils';
+import {Colors, Fonts} from '../../../utils';
 
 type IProps = {
   containerStyle?: StyleProp<ViewStyle>;
@@ -42,6 +42,11 @@ const TextInputCustom = (props: IProps) => {
           ...styles.input,
           ...props.inputStyle,
         }}
+        inputContainerStyle={{
+          ...styles.inputContainer,
+          ...props.inputContainerStyle,
+        }}
+        leftIcon={props.leftIcon}
       />
     </View>
   );
@@ -54,11 +59,22 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   input: {
+    color: 'white',
+    fontFamily: Fonts.LatoRegular,
+    fontSize: 16,
+  },
+  inputContainer: {
+    borderBottomColor: 'transparent',
     paddingHorizontal: 12,
     backgroundColor: Colors.black1,
+
     borderWidth: 1,
     borderRadius: 4,
     borderColor: Colors.gray2,
-    color: 'white',
+  },
+  container: {
+    borderWidth: 1,
+    borderRadius: 4,
+    borderColor: Colors.gray2,
   },
 });
