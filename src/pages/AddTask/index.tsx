@@ -1,15 +1,24 @@
 import {View, StyleSheet} from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import GlobalStyles from '../../styles';
 import {ButtonCustom, Header, TextInputCustom} from '../../components';
 import {Icon, Text} from '@rneui/themed';
-import {Colors, Fonts} from '../../utils';
+import {Colors, DateTimeHelper, Fonts} from '../../utils';
 import {CategoryData} from '../../data';
 import {Image} from '@rneui/base';
 
 const AddTask = () => {
   const [title, setTitle] = useState(null);
   const [description, setDescription] = useState(null);
+  const [taskTime, setTaskTime] = useState(
+    DateTimeHelper.getFormattedDateTime({}),
+  );
+  const [taskCategory, setTaskCategory] = useState({
+    label: CategoryData.listCategory[0].label,
+    icon: CategoryData.listCategory[0].icon,
+  });
+
+  const [taskPriority, setTaskPriority] = useState('1');
 
   return (
     <View style={GlobalStyles.container}>
@@ -32,7 +41,7 @@ const AddTask = () => {
           title="Task Time : "
         />
         <ButtonCustom
-          title={'Today At 16:45'}
+          title={taskTime}
           buttonStyle={styles.buttonStyle}
           containerStyle={styles.buttonContainer}
           onPress={() => {}}
@@ -48,12 +57,9 @@ const AddTask = () => {
         />
         <ButtonCustom
           icon={
-            <Image
-              source={CategoryData.listCategory[0].icon}
-              style={{width: 18, height: 18}}
-            />
+            <Image source={taskCategory.icon} style={{width: 18, height: 18}} />
           }
-          title={CategoryData.listCategory[0].label}
+          title={taskCategory.label}
           buttonStyle={styles.buttonStyle}
           containerStyle={styles.buttonContainer}
           onPress={() => {}}
@@ -74,7 +80,7 @@ const AddTask = () => {
               style={{width: 18, height: 18}}
             />
           }
-          title={'1'}
+          title={taskPriority}
           buttonStyle={styles.buttonStyle}
           containerStyle={styles.buttonContainer}
           onPress={() => {}}
@@ -86,6 +92,7 @@ const AddTask = () => {
         title={'Add Task'}
         containerStyle={{marginTop: 64}}
         onPress={() => {}}
+        disabled={true}
       />
     </View>
   );
