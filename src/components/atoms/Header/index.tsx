@@ -29,7 +29,7 @@ const Header = (props: IProps) => {
     rightIconOnPress,
     title,
     color = 'white',
-    size = '32',
+    size = 32,
     type,
   } = props;
 
