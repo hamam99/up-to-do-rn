@@ -6,6 +6,7 @@ const Colors = {
   white1: 'rgba(255, 255, 255, 0.87)',
   white2: 'rgba(255, 255, 255, 0.44)',
   white3: 'rgba(255, 255, 255, 0.67)',
+  white4: 'rgba(255, 255, 255, 0.21)',
   gray1: '#AFAFAF',
   gray2: '#979797',
   black: '#121212',
