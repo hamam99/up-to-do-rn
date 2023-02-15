@@ -120,7 +120,15 @@ const Login = () => {
           size: 15,
           color: 'white',
         }}
-        onPress={() => {}}
+        onPress={() => {
+          Auth.signInGoogle()
+            .then(() => {
+              console.log('login response');
+            })
+            .catch(err => {
+              console.log('login err', {err});
+            });
+        }}
       />
 
       <ButtonCustom

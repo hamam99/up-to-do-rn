@@ -18,6 +18,7 @@ const AppNavigation = () => {
   }
 
   useEffect(() => {
+    Auth.configure();
     const subscriber = Auth.onAuthStateChanged(onAuthStateChanged);
     return subscriber; // unsubscribe on unmount
   }, []);
