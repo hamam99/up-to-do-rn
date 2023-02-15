@@ -15,6 +15,12 @@ import icHome from '../assets/icons/category-home.png';
 
 const listCategory = [
   {
+    name: 'home',
+    color: Colors.red1,
+    icon: icHome,
+    label: 'Home',
+  },
+  {
     name: 'grocery',
     color: Colors.green1,
     icon: icGrocery,
@@ -68,12 +74,6 @@ const listCategory = [
     color: Colors.blue1,
     icon: icMovie,
     label: 'Movie',
-  },
-  {
-    name: 'home',
-    color: Colors.red1,
-    icon: icHome,
-    label: 'Home',
   },
 ];
 
