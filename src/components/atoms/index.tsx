@@ -5,6 +5,7 @@ import DropDown from './DropDown';
 import Header from './Header';
 import IconTabBar from './IconTabBar';
 import IntroItem from './Intro';
+import PriorityCategory from './PiorityCategory';
 import TextInputCustom from './TextInputCustom';
 
 export {
@@ -16,4 +17,5 @@ export {
   IconTabBar,
   CustomButtonTabBar,
   DropDown,
+  PriorityCategory,
 };
