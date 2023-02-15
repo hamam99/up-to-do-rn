@@ -46,6 +46,9 @@ const ButtonCustom = (props: IPropsLocal) => {
         ...style.container,
         ...containerStyle,
       }}
+      disabledTitleStyle={{
+        color: 'black',
+      }}
       onPress={() => onPress()}
     />
   );
