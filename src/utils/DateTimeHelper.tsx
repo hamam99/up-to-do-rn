@@ -1,31 +1,33 @@
 import moment from 'moment';
 
 const getTimestamp = () => {
-  return moment().format();
+  return moment().unix();
 };
 
 const format = ({
   date,
-  pattern = 'MMMM Do YYYY, h:mm',
+  pattern = 'MMMM Do YYYY, HH:mm',
 }: {
-  date: string;
+  date: number;
   pattern: string;
 }) => {
-  return moment(date).format(pattern);
+  return moment.unix(date).format(pattern);
 };
 
-const getFormattedDateTime = ({date = getTimestamp()}) => {
-  const diff = moment().diff(date, 'days');
-  let prefix = 'Today';
-  if (diff === 0) {
+const getFormattedDateTime = ({unixTimeStamp = getTimestamp()}) => {
+  const ts = moment.unix(unixTimeStamp); // any unix timestamp. This is 2018-03-01
+
+  const today = moment(); // further test data
+  const yesterday = moment().subtract(1, 'days'); // further test data
+  let prefix = format({date: unixTimeStamp, pattern: 'MMM DD YYYY'}) + ',';
+
+  if (ts.isSame(today, 'day')) {
     prefix = 'Today';
-  } else if (diff === -1) {
+  } else if (ts.isSameOrBefore(yesterday, 'day')) {
     prefix = 'Yesterday';
-  } else {
-    prefix = format({date: date, pattern: 'MMM DD YYYY'}) + ',';
   }
 
-  return prefix + ' at ' + format({date: date, pattern: 'h:mm'});
+  return prefix + ' at ' + format({date: unixTimeStamp, pattern: 'hh:mm A'});
 };
 const DateTimeHelper = {getTimestamp, getFormattedDateTime};
 
