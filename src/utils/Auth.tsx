@@ -47,12 +47,17 @@ const signInGoogle = async () => {
   return auth().signInWithCredential(googleCredential);
 };
 
+const getCurrentUser = () => {
+  return auth().currentUser;
+};
+
 const Auth = {
   configure,
   SignupUsingEmail,
   signInUsingEmail,
   onAuthStateChanged,
   signInGoogle,
+  getCurrentUser,
 };
 
 export default Auth;
