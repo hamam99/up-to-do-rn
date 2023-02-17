@@ -6,19 +6,27 @@ import {Icon, Text} from '@rneui/themed';
 import {Colors, DateTimeHelper, Fonts} from '../../utils';
 import {CategoryData} from '../../data';
 import {Image} from '@rneui/base';
+import RNDateTimePicker, {
+  DateTimePickerAndroid,
+  DateTimePickerEvent,
+} from '@react-native-community/datetimepicker';
+import DatePicker from 'react-native-date-picker';
 
 const AddTask = () => {
   const [title, setTitle] = useState(null);
   const [description, setDescription] = useState(null);
-  const [taskTime, setTaskTime] = useState(
-    DateTimeHelper.getFormattedDateTime({}),
-  );
+  const [taskTime, setTaskTime] = useState(DateTimeHelper.getTimestamp());
   const [taskCategory, setTaskCategory] = useState({
     label: CategoryData.listCategory[0].label,
     icon: CategoryData.listCategory[0].icon,
   });
 
   const [taskPriority, setTaskPriority] = useState('1');
+
+  const [datePickerConfig, setDatePickerConfig] = useState({
+    show: false,
+    mode: 'date', //date //time
+  });
 
   return (
     <View style={GlobalStyles.container}>
@@ -41,10 +49,15 @@ const AddTask = () => {
           title="Task Time : "
         />
         <ButtonCustom
-          title={taskTime}
+          title={DateTimeHelper.getFormattedDateTime({unixTimeStamp: taskTime})}
           buttonStyle={styles.buttonStyle}
           containerStyle={styles.buttonContainer}
-          onPress={() => {}}
+          onPress={() => {
+            setDatePickerConfig({
+              show: true,
+              mode: 'date',
+            });
+          }}
           titleStyle={styles.buttonTitle}
         />
       </View>
@@ -87,6 +100,56 @@ const AddTask = () => {
           titleStyle={styles.buttonTitle}
         />
       </View>
+
+      {/* {datePickerConfig.show && (
+        <RNDateTimePicker
+          mode={datePickerConfig.mode}
+          value={new Date()}
+          is24Hour={true}
+          onChange={({nativeEvent, type}) => {
+            console.log('datepicker', nativeEvent, type);
+
+            if (datePickerConfig.mode === 'date') {
+              setDatePickerConfig({
+                show: true,
+                mode: 'time',
+              });
+              setTaskTime(nativeEvent.timestamp / 1000);
+              return;
+            }
+
+            if (datePickerConfig.mode === 'time') {
+              setDatePickerConfig({
+                show: false,
+                mode: 'date',
+              });
+              setTaskTime(nativeEvent.timestamp / 1000);
+            }
+          }}
+        />
+      )} */}
+
+      <DatePicker
+        is24hourSource={'locale'}
+        open={datePickerConfig.show}
+        mode={'datetime'}
+        date={new Date(taskTime * 1000)}
+        modal={true}
+        onConfirm={date => {
+          console.log('date', date, date.getTime());
+          setTaskTime(date.getTime() / 1000);
+          setDatePickerConfig({
+            show: false,
+            mode: 'date',
+          });
+        }}
+        onCancel={() => {
+          setDatePickerConfig({
+            show: false,
+            mode: 'date',
+          });
+        }}
+      />
 
       <ButtonCustom
         title={'Add Task'}
