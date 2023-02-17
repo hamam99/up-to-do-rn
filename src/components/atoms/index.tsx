@@ -1,6 +1,7 @@
 import ButtonBack from './ButtonBack';
 import ButtonCustom from './ButtonCustom';
 import CustomButtonTabBar from './CustomButtonTabBar';
+import DatePickerWrapper from './DatePickerWrapper';
 import DropDown from './DropDown';
 import Header from './Header';
 import IconTabBar from './IconTabBar';
@@ -18,4 +19,5 @@ export {
   CustomButtonTabBar,
   DropDown,
   PriorityCategory,
+  DatePickerWrapper,
 };

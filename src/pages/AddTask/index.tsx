@@ -1,16 +1,16 @@
 import {View, StyleSheet} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import GlobalStyles from '../../styles';
-import {ButtonCustom, Header, TextInputCustom} from '../../components';
+import {
+  ButtonCustom,
+  DatePickerWrapper,
+  Header,
+  TextInputCustom,
+} from '../../components';
 import {Icon, Text} from '@rneui/themed';
 import {Colors, DateTimeHelper, Fonts} from '../../utils';
 import {CategoryData} from '../../data';
 import {Image} from '@rneui/base';
-import RNDateTimePicker, {
-  DateTimePickerAndroid,
-  DateTimePickerEvent,
-} from '@react-native-community/datetimepicker';
-import DatePicker from 'react-native-date-picker';
 
 const AddTask = () => {
   const [title, setTitle] = useState(null);
@@ -101,40 +101,9 @@ const AddTask = () => {
         />
       </View>
 
-      {/* {datePickerConfig.show && (
-        <RNDateTimePicker
-          mode={datePickerConfig.mode}
-          value={new Date()}
-          is24Hour={true}
-          onChange={({nativeEvent, type}) => {
-            console.log('datepicker', nativeEvent, type);
-
-            if (datePickerConfig.mode === 'date') {
-              setDatePickerConfig({
-                show: true,
-                mode: 'time',
-              });
-              setTaskTime(nativeEvent.timestamp / 1000);
-              return;
-            }
-
-            if (datePickerConfig.mode === 'time') {
-              setDatePickerConfig({
-                show: false,
-                mode: 'date',
-              });
-              setTaskTime(nativeEvent.timestamp / 1000);
-            }
-          }}
-        />
-      )} */}
-
-      <DatePicker
-        is24hourSource={'locale'}
+      <DatePickerWrapper
         open={datePickerConfig.show}
-        mode={'datetime'}
         date={new Date(taskTime * 1000)}
-        modal={true}
         onConfirm={date => {
           console.log('date', date, date.getTime());
           setTaskTime(date.getTime() / 1000);
