@@ -24,7 +24,7 @@ const AddTask = () => {
 
   const [showPopupTaskCategory, setShowPopupTaskCategory] = useState(false);
 
-  const [taskPriority, setTaskPriority] = useState('1');
+  const [taskPriority, setTaskPriority] = useState(1);
   const [showPopupTaskPriority, setShowPopupTaskPriority] = useState(false);
 
   const [datePickerConfig, setDatePickerConfig] = useState({
@@ -99,7 +99,7 @@ const AddTask = () => {
               style={{width: 18, height: 18}}
             />
           }
-          title={taskPriority}
+          title={taskPriority.toString()}
           buttonStyle={styles.buttonStyle}
           containerStyle={styles.buttonContainer}
           onPress={() => {
@@ -144,7 +144,7 @@ const AddTask = () => {
           setShowPopupTaskPriority(false);
         }}
         onPress={priority => {
-          setTaskPriority(priority.toString());
+          setTaskPriority(priority);
         }}
       />
 
@@ -152,7 +152,7 @@ const AddTask = () => {
         title={'Add Task'}
         containerStyle={{marginTop: 64}}
         onPress={() => {}}
-        disabled={true}
+        disabled={!title || !description}
       />
     </View>
   );
