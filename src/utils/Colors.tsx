@@ -12,6 +12,7 @@ const Colors = {
   black: '#121212',
   black1: '#1D1D1D',
   black2: '#363636',
+  black3: '#272727',
   green1: '#CCFF80',
   green2: '#80FFA3',
   orange1: '#FF9680',
