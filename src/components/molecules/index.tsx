@@ -1,3 +1,4 @@
 import HeaderWithProfile from './HeaderWithProfile';
+import ListCategory from './ListCategory';
 
-export {HeaderWithProfile};
+export {HeaderWithProfile, ListCategory};

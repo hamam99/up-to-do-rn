@@ -5,6 +5,7 @@ import {
   ButtonCustom,
   DatePickerWrapper,
   Header,
+  ListCategory,
   TextInputCustom,
 } from '../../components';
 import {Icon, Text} from '@rneui/themed';
@@ -16,10 +17,11 @@ const AddTask = () => {
   const [title, setTitle] = useState(null);
   const [description, setDescription] = useState(null);
   const [taskTime, setTaskTime] = useState(DateTimeHelper.getTimestamp());
-  const [taskCategory, setTaskCategory] = useState({
-    label: CategoryData.listCategory[0].label,
-    icon: CategoryData.listCategory[0].icon,
-  });
+  const [taskCategory, setTaskCategory] = useState(
+    CategoryData.listCategory[0],
+  );
+
+  const [showPopupTaskCategory, setShowPopupTaskCategory] = useState(false);
 
   const [taskPriority, setTaskPriority] = useState('1');
 
@@ -75,7 +77,9 @@ const AddTask = () => {
           title={taskCategory.label}
           buttonStyle={styles.buttonStyle}
           containerStyle={styles.buttonContainer}
-          onPress={() => {}}
+          onPress={() => {
+            setShowPopupTaskCategory(true);
+          }}
           titleStyle={styles.buttonTitle}
         />
       </View>
@@ -117,6 +121,15 @@ const AddTask = () => {
             show: false,
             mode: 'date',
           });
+        }}
+      />
+      <ListCategory
+        isVisible={showPopupTaskCategory}
+        hidePopup={() => {
+          setShowPopupTaskCategory(false);
+        }}
+        onPress={category => {
+          setTaskCategory(category);
         }}
       />
 
