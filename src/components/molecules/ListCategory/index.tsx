@@ -39,7 +39,6 @@ const ListCategory = ({isVisible, hidePopup, onPress}: IProps) => {
             columnWrapperStyle={styles.columnWrapper}
           />
         </View>
-        {/* <ButtonCustom title={'Add Category'} /> */}
       </View>
     </Overlay>
   );
@@ -51,27 +50,10 @@ const IconCategory = props => {
   const {color, icon, label, name, onPress} = props;
   return (
     <TouchableOpacity onPress={onPress}>
-      <View
-        style={{
-          width: 64,
-          height: 64,
-          backgroundColor: color,
-          borderRadius: 4,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-        <Image source={icon} style={{width: 32, height: 32}} />
+      <View style={[styles.iconWrapper, {backgroundColor: color}]}>
+        <Image source={icon} style={styles.icon} />
       </View>
-      <Text
-        style={{
-          fontFamily: Fonts.LatoRegular,
-          color: 'white',
-          textAlign: 'center',
-          marginTop: 5,
-          fontWeight: 600,
-        }}>
-        {label}
-      </Text>
+      <Text style={styles.iconLabel}>{label}</Text>
     </TouchableOpacity>
   );
 };
@@ -104,5 +86,24 @@ const styles = StyleSheet.create({
   },
   columnWrapper: {
     justifyContent: 'space-evenly',
+  },
+  iconWrapper: {
+    width: 64,
+    height: 64,
+
+    borderRadius: 4,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  icon: {
+    width: 32,
+    height: 32,
+  },
+  iconLabel: {
+    fontFamily: Fonts.LatoRegular,
+    color: 'white',
+    textAlign: 'center',
+    marginTop: 5,
+    fontWeight: 600,
   },
 });
