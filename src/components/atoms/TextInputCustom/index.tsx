@@ -1,5 +1,5 @@
 import {View, Text, StyleSheet} from 'react-native';
-import React from 'react';
+import React, {Ref} from 'react';
 import {Input} from '@rneui/themed';
 import {TextInput, ViewStyle, StyleProp, TextStyle} from 'react-native';
 import {IconNode} from '@rneui/base';
@@ -26,13 +26,15 @@ type IProps = {
   renderErrorMessage?: boolean;
   secureTextEntry?: boolean;
   onChangeText?: ((text: string) => void) | undefined;
+  ref?: Ref<T> | undefined;
 };
-const TextInputCustom = (props: IProps) => {
+const TextInputCustom = React.forwardRef((props, ref) => {
   return (
     <View style={{marginHorizontal: -8}}>
       <Input
         placeholder={props.placeholder}
         label={props.label}
+        ref={ref}
         {...props}
         labelStyle={{
           ...styles.label,
@@ -50,7 +52,7 @@ const TextInputCustom = (props: IProps) => {
       />
     </View>
   );
-};
+});
 
 export default TextInputCustom;
 
