@@ -1,35 +1,26 @@
-import {
-  View,
-  Text,
-  useWindowDimensions,
-  StyleSheet,
-  FlatList,
-  TouchableOpacity,
-} from 'react-native';
-import React, {useState, useEffect} from 'react';
+import {View, Text, StyleSheet, FlatList, TouchableOpacity} from 'react-native';
+import React from 'react';
 import {Overlay, Divider, Image} from '@rneui/themed';
-import ButtonCustom from '../../atoms/ButtonCustom';
 import {Colors, Fonts} from '../../../utils';
-import {} from '@rneui/themed';
 import {CategoryData} from '../../../data';
 
-const ListCategory = ({isVisible, hidePopup, onPress}) => {
-  const {width} = useWindowDimensions();
-
+type IProps = {
+  isVisible: boolean;
+  hidePopup: () => void;
+  onPress: (item: any) => void;
+};
+const ListCategory = ({isVisible, hidePopup, onPress}: IProps) => {
   return (
     <Overlay
       isVisible={isVisible}
       onBackdropPress={() => {
         hidePopup();
       }}
-      overlayStyle={{
-        backgroundColor: Colors.black2,
-        width: 327,
-      }}>
+      overlayStyle={styles.overlay}>
       <View style={{}}>
         <Text style={styles.title}>Choose Category</Text>
         <Divider style={styles.divider} />
-        <View style={{marginHorizontal: 15, marginBottom: 15}}>
+        <View style={styles.listWrapper}>
           <FlatList
             numColumns={3}
             data={CategoryData.listCategory}
@@ -44,10 +35,8 @@ const ListCategory = ({isVisible, hidePopup, onPress}) => {
               />
             )}
             keyExtractor={(item, index) => index}
-            ItemSeparatorComponent={() => <View style={{height: 16}} />}
-            columnWrapperStyle={{
-              justifyContent: 'space-evenly',
-            }}
+            ItemSeparatorComponent={() => <View style={styles.itemSeparator} />}
+            columnWrapperStyle={styles.columnWrapper}
           />
         </View>
         {/* <ButtonCustom title={'Add Category'} /> */}
@@ -61,13 +50,7 @@ export default ListCategory;
 const IconCategory = props => {
   const {color, icon, label, name, onPress} = props;
   return (
-    <TouchableOpacity
-      onPress={onPress}
-      //   onPress={() => {
-      //     // onPress({color, icon, label, name});
-      //     onPress();
-      //   }}
-    >
+    <TouchableOpacity onPress={onPress}>
       <View
         style={{
           width: 64,
@@ -94,7 +77,10 @@ const IconCategory = props => {
 };
 
 const styles = StyleSheet.create({
-  overlay: {},
+  overlay: {
+    backgroundColor: Colors.black2,
+    width: 327,
+  },
   title: {
     fontFamily: Fonts.LatoBold,
     fontSize: 16,
@@ -108,5 +94,15 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 1,
     marginVertical: 15,
+  },
+  listWrapper: {
+    marginHorizontal: 15,
+    marginBottom: 15,
+  },
+  itemSeparator: {
+    height: 16,
+  },
+  columnWrapper: {
+    justifyContent: 'space-evenly',
   },
 });
