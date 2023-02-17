@@ -1,4 +1,4 @@
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, ToastAndroid} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import GlobalStyles from '../../styles';
 import {
@@ -10,13 +10,24 @@ import {
   TextInputCustom,
 } from '../../components';
 import {Icon, Text} from '@rneui/themed';
-import {Colors, DateTimeHelper, Fonts} from '../../utils';
+import {
+  Auth,
+  Colors,
+  DateTimeHelper,
+  Fonts,
+  RealtimeDatabase,
+} from '../../utils';
 import {CategoryData} from '../../data';
 import {Image} from '@rneui/base';
+import {ITask} from '../../types';
 
 const AddTask = () => {
-  const [title, setTitle] = useState(null);
-  const [description, setDescription] = useState(null);
+  const currentUser = Auth.getCurrentUser();
+  let inputTitle = React.useRef();
+  let inputDescription = React.useRef();
+
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
   const [taskTime, setTaskTime] = useState(DateTimeHelper.getTimestamp());
   const [taskCategory, setTaskCategory] = useState(
     CategoryData.listCategory[0],
@@ -32,15 +43,64 @@ const AddTask = () => {
     mode: 'date', //date //time
   });
 
+  const [isLoading, setLoading] = useState(false);
+
+  const clearForm = () => {
+    setTitle('');
+    setDescription('');
+    setTaskTime(DateTimeHelper.getTimestamp());
+    setTaskCategory(CategoryData.listCategory[0]);
+    setTaskPriority(1);
+
+    inputTitle?.current?.clear();
+    inputDescription?.current?.clear();
+  };
+
+  useEffect(() => {
+    console.log('currentUser', {currentUser, uid: currentUser?.uid});
+  }, [currentUser]);
+
+  const addTask = () => {
+    setLoading(true);
+    const taskObj: ITask = {
+      id: DateTimeHelper.getTimestamp(),
+      category: taskCategory.name,
+      description,
+      title,
+      priority: taskPriority,
+      status: 'inprogress',
+      time: taskTime,
+    };
+
+    RealtimeDatabase.store(taskObj)
+      .then(() => {
+        ToastAndroid.show('Success add task', ToastAndroid.SHORT);
+        clearForm();
+        console.log('success add task');
+      })
+      .catch(err => {
+        console.log('err', {err});
+        ToastAndroid.show(
+          err?.message ?? 'Failed to add task',
+          ToastAndroid.SHORT,
+        );
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
   return (
     <View style={GlobalStyles.container}>
       <Header title="Add Task" />
       <TextInputCustom
+        ref={inputTitle}
         placeholder="Title"
         containerStyle={{width: '100%'}}
         onChangeText={text => setTitle(text)}
       />
       <TextInputCustom
+        ref={inputDescription}
         placeholder="Description"
         containerStyle={{marginTop: -16}}
         onChangeText={text => setDescription(text)}
@@ -151,8 +211,9 @@ const AddTask = () => {
       <ButtonCustom
         title={'Add Task'}
         containerStyle={{marginTop: 64}}
-        onPress={() => {}}
+        onPress={addTask}
         disabled={!title || !description}
+        loading={isLoading}
       />
     </View>
   );
