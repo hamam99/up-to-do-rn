@@ -6,6 +6,7 @@ import {
   DatePickerWrapper,
   Header,
   ListCategory,
+  ListPriority,
   TextInputCustom,
 } from '../../components';
 import {Icon, Text} from '@rneui/themed';
@@ -24,6 +25,7 @@ const AddTask = () => {
   const [showPopupTaskCategory, setShowPopupTaskCategory] = useState(false);
 
   const [taskPriority, setTaskPriority] = useState('1');
+  const [showPopupTaskPriority, setShowPopupTaskPriority] = useState(false);
 
   const [datePickerConfig, setDatePickerConfig] = useState({
     show: false,
@@ -100,7 +102,9 @@ const AddTask = () => {
           title={taskPriority}
           buttonStyle={styles.buttonStyle}
           containerStyle={styles.buttonContainer}
-          onPress={() => {}}
+          onPress={() => {
+            setShowPopupTaskPriority(true);
+          }}
           titleStyle={styles.buttonTitle}
         />
       </View>
@@ -123,6 +127,7 @@ const AddTask = () => {
           });
         }}
       />
+
       <ListCategory
         isVisible={showPopupTaskCategory}
         hidePopup={() => {
@@ -130,6 +135,16 @@ const AddTask = () => {
         }}
         onPress={category => {
           setTaskCategory(category);
+        }}
+      />
+
+      <ListPriority
+        isVisible={showPopupTaskPriority}
+        hidePopup={() => {
+          setShowPopupTaskPriority(false);
+        }}
+        onPress={priority => {
+          setTaskPriority(priority.toString());
         }}
       />
 
